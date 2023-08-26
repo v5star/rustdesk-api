@@ -15,7 +15,7 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
    ```
     如：http://192.168.0.1/index.php?s=
    ```
-![设置](https://raw.githubusercontent.com/v5star/rustdesk-api/main/Snapshots/20230826155800.png)
+![设置](https://raw.githubusercontent.com/v5star/rustdesk-api/main/Snapshots/20230826163152.png)
 ![设置](https://raw.githubusercontent.com/v5star/rustdesk-api/main/Snapshots/20230826163000.png)
 
 
