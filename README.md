@@ -18,9 +18,9 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 4. 默认的登录用户名和密码都是：``` admin ```
    
 ![设置](https://raw.githubusercontent.com/v5star/rustdesk-api/main/Snapshots/20230826163152.png)
-![地址簿](https://raw.githubusercontent.com/v5star/rustdesk-api/main/Snapshots/20230826163000.png)
 ![首页](https://raw.githubusercontent.com/v5star/rustdesk-api/main/Snapshots/index.png)
 ![登录](https://raw.githubusercontent.com/v5star/rustdesk-api/main/Snapshots/login.png)
+![地址簿](https://raw.githubusercontent.com/v5star/rustdesk-api/main/Snapshots/20230826163000.png)
 
 
 
