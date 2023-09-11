@@ -15,8 +15,11 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
    ```
     如：http://192.168.0.1/index.php?s=
    ```
-4. 首次运行先访问http://你到域名或IP:端口/index.php?ac=runonce 创建数据库以及用户名密码。``` 如：htpp://www.xxx.com/index.php?ac=runonce ```
-5. 默认的登录用户名和密码都是：``` admin ```
+4. 首次运行先访问http://你到域名或IP:端口/index.php?ac=runonce 创建数据库以及用户名密码。
+   ```
+   如：htpp://www.xxx.com/index.php?ac=runonce
+   ```
+6. 默认的登录用户名和密码都是：``` admin ```
    
 ![设置](./Snapshots/20230826163152.png)
 ![首页](./Snapshots/index.png)
