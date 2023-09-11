@@ -228,7 +228,6 @@ if ($action == '/api/ab') {
                 $_peers[] = $item;
             }
             $_address_book = array(
-                'error' => false,
                 'updated_at' => date('Y-m-d H:i:s', time()),
                 'data' => json_encode(array("tags" => $_tags, "peers" => $_peers))
             );
