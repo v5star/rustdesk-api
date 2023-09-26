@@ -76,9 +76,9 @@ if($ac=='add'){
     $ret = $db->querySingle($sql);
     if($ret==0){
         $pwd2 = md5($pwd.'rustdesk');
-        $sql ="INSERT INTO rustdesk_users (username,password) VALUES ('".$username."','".$pwd2."');";
+        $sql ="INSERT INTO rustdesk_users (username,password,create_time) VALUES ('".$username."','".$pwd2."',".time().");";
         $ret=$db->exec($sql);
-        print_r("添加用户". $username."成功~！".$ret);exit();
+        print_r("添加用户". $username."成功~！");exit();
     }else{
         print_r('<span style="color:red">'.$username."已存在，无需重复添加。</span>");exit();
     } 
@@ -171,9 +171,11 @@ if($action =='/api/currentUser'){
     //输出结果json字符串
     echo $json_string;
 }
-//POST更新地址簿，GET获取地址簿
+//POST更新地址簿，GET获取地址簿 v1.2.2 以后的版本
 if ($action == '/api/ab') {
+   
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+       
         //获取提交过来数据
         $p_data = json_decode($raw_post_data)->data;
         //解析json里的字段
@@ -187,7 +189,7 @@ if ($action == '/api/ab') {
         //执行sql语句并获取一条记录
         $info = $db->querySingle($sql, true);
         //标签集合(因为是原生的，只能拼接字符串了，大家凑合着用吧)
-        if ($tags) {
+        if ($tags&&$info) {
             $del_tag_sql = "delete from rustdesk_tags where uid = " . $info['uid'];
             $db->exec($del_tag_sql);
             //高效方式
@@ -202,7 +204,7 @@ if ($action == '/api/ab') {
             $db->exec($insert_tag_sql);
         }
         //设备集合（地址簿）
-        if ($peers) {
+        if ($peers&&$info) {
             $del_peers_sql = "delete from rustdesk_peers where uid = " . $info['uid'];
             $db->exec($del_peers_sql);
             //这里可以自己写一个对比的方法也行
@@ -226,7 +228,7 @@ if ($action == '/api/ab') {
         $sql = "select * from rustdesk_token where access_token = '" . $auth_token . "'";
         //执行sql语句并获取一条登录的记录
         $info = $db->querySingle($sql, true);
-        //print_r($info);exit();
+        // print_r($info);exit();
         //分别去`rustdesk_tags`和`rustdesk_peers`表里取当前用户的所有信息，全部一次性返回到客户端就完事了
         //定义一个临时数组来存放这里两个表取出来的数据
         $_address_book = array();
@@ -255,10 +257,11 @@ if ($action == '/api/ab') {
                 $item['tags'] = explode(',', $row['tags']);
                 $_peers[] = $item;
             }
-            $_address_book = array(
+            $_address_book = array( 
                 'updated_at' => date('Y-m-d H:i:s', time()),
                 'data' => json_encode(array("tags" => $_tags, "peers" => $_peers))
             );
+           
         } else {
             $_address_book = array("error" => "获取地址簿有误");
         }
@@ -266,7 +269,6 @@ if ($action == '/api/ab') {
         $address_book = json_encode($_address_book);
         //输出结果json字符串
         echo $address_book;
-
     }
 }
  
