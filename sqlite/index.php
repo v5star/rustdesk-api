@@ -69,6 +69,32 @@ if($ac=='runonce'){
     }
     print_r('完美的创建并初始化数据库，你可以愉快的玩耍Rustdesk了');exit();
 }
+if($ac=='add'){
+    $username = $_GET['u'];
+    $pwd = $_GET['p'];
+    $sql = "select count(1) from rustdesk_users where username ='".$username."'";
+    $ret = $db->querySingle($sql);
+    if($ret==0){
+        $pwd2 = md5($pwd.'rustdesk');
+        $sql ="INSERT INTO rustdesk_users (username,password) VALUES ('".$username."','".$pwd2."');";
+        $ret=$db->exec($sql);
+        print_r("添加用户". $username."成功~！".$ret);exit();
+    }else{
+        print_r('<span style="color:red">'.$username."已存在，无需重复添加。</span>");exit();
+    } 
+}
+if($ac=='del'){
+    $username = $_GET['u'];
+    $pwd = $_GET['p'];
+    $pwd2 = md5($pwd.'rustdesk');
+    $sql = "delete from rustdesk_users where username ='".$username."' and password='".$pwd2."'";
+    $ret = $db->exec($sql);
+    if($ret){ 
+        print_r("删除用户". $username."成功~！");exit();
+    }else{
+        print_r('<span style="color:red">用户'.$username."不存在，或密码错误。</span>");exit();
+    }
+}
 //获取访问的啥方法
 $action = $_GET['s'];
 $raw_post_data = file_get_contents('php://input');//这个就是提交过来的数据集合
