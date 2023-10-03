@@ -8,8 +8,10 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 - 新增，可以一键登录，设备连接密码也存到服务器上了
 - 可以看设备状态
 
-# 新增功能
+# 新增或修改
 - 用户的添加和删除，方法见下面食用方法
+- 新增mysql版本的api
+- 修改sqlite版设备连接密码的更新
 
 # 食用方法
 1. 在php环境的服务器上新增一个网站。
@@ -18,7 +20,7 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
    ```
     如：http://192.168.0.1/index.php?s=
    ```
-4. 首次运行先访问http://你到域名或IP:端口/index.php?ac=runonce 创建数据库以及用户名密码。
+4. 首次运行先访问http://你到域名或IP:端口/index.php?ac=runonce 创建数据库以及用户名密码。（mysql版本没有此方法）
    ```
    如：http://www.youdomain.com/index.php?ac=runonce
    ```
