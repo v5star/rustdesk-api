@@ -208,16 +208,16 @@ if ($action == '/api/ab') {
             $del_peers_sql = "delete from rustdesk_peers where uid = " . $info['uid'];
             $db->exec($del_peers_sql);
             //这里可以自己写一个对比的方法也行
-            $insert_peers_sql = "insert into rustdesk_peers (uid, id, username, hostname, alias, platform, tags) ";
+            $insert_peers_sql = "insert into rustdesk_peers (uid, id, username, hostname, alias, platform, tags,hash) ";
             foreach ($peers as $k => $v) {
                 $_tag = '';
                 if ($v->tags) {
                     $_tag = implode(',', $v->tags);
                 }
                 if ($k == 0) {
-                    $insert_peers_sql .= " SELECT " . $info['uid'] . " AS 'uid', '" . $v->id . "' AS 'id','" . $v->username . "' as  'username', '" . $v->hostname . "' as 'hostname', '" . $v->alias . "' as 'alias', '" . $v->platform . "' as 'platform', '" . $_tag . "' as 'tags' ";
+                    $insert_peers_sql .= " SELECT " . $info['uid'] . " AS 'uid', '" . $v->id . "' AS 'id','" . $v->username . "' as  'username', '" . $v->hostname . "' as 'hostname', '" . $v->alias . "' as 'alias', '" . $v->platform . "' as 'platform', '" . $_tag . "' as 'tags' ,'hash'";
                 } else {
-                    $insert_peers_sql .= " UNION SELECT " . $info['uid'] . ", '" . $v->id . "','" . $v->username . "' as 'username','" . $v->hostname . "' as 'hostname','" . $v->alias . "' as 'alias','" . $v->platform . "' as 'platform','" . $_tag . "' as 'tags'";
+                    $insert_peers_sql .= " UNION SELECT " . $info['uid'] . ", '" . $v->id . "','" . $v->username . "' as 'username','" . $v->hostname . "' as 'hostname','" . $v->alias . "' as 'alias','" . $v->platform . "' as 'platform','" . $_tag . "' as 'tags','hash'";
                 }
             }
             $db->exec($insert_peers_sql);
@@ -253,7 +253,7 @@ if ($action == '/api/ab') {
                 $item['hostname'] = $row['hostname'];
                 $item['alias'] = $row['alias'];
                 $item['platform'] = $row['platform'];
-				$item['hash'] = $row['hash'];
+		$item['hash'] = $row['hash'];
                 $item['tags'] = explode(',', $row['tags']);
                 $_peers[] = $item;
             }
