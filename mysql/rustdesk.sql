@@ -7,12 +7,12 @@ CREATE TABLE `rustdesk_peers` (
   `deviceid` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `uid` int UNSIGNED NOT NULL COMMENT '用户ID',
   `id` char(16) NOT NULL DEFAULT '' COMMENT '设备ID',
-  `username` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作系统用户名',
-  `hostname` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作系统名',
-  `alias` char(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '别名',
-  `platform` char(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '平台',
-  `tags` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '标签',
-  `hash` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '设备连接密码',
+  `username` varchar(128) NULL DEFAULT '' COMMENT '操作系统用户名',
+  `hostname` varchar(128) NULL DEFAULT '' COMMENT '操作系统名',
+  `alias` char(20) NULL DEFAULT '' COMMENT '别名',
+  `platform` char(20) NULL DEFAULT '' COMMENT '平台',
+  `tags` varchar(256) NULL DEFAULT '' COMMENT '标签',
+  `hash` varchar(128) NULL DEFAULT '' COMMENT '设备连接密码',
   PRIMARY KEY (`deviceid`),
   UNIQUE KEY `uuid` (`id`,`uid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='远程设备表';
@@ -44,7 +44,7 @@ CREATE TABLE `rustdesk_token` (
   `uuid` char(64) NOT NULL COMMENT '设备ID',
   `access_token` varchar(128) NOT NULL DEFAULT '' COMMENT '登录token',
   `login_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '登录时间',
-  `expire_time` int DEFAULT NULL COMMENT '过期时间',
+  `expire_time` int DEFAULT '0' COMMENT '过期时间',
   PRIMARY KEY (`access_token`),
   UNIQUE KEY `login_token` (`username`,`id`,`uuid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='登录Token表';
@@ -65,7 +65,7 @@ CREATE TABLE `rustdesk_users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='用户表';
 
 --
--- 转存表中的数据 `rustdesk_users`
+-- `rustdesk_users` 插入管理员用户名，admin/admin
 --
 
 INSERT INTO `rustdesk_users` (`id`, `username`, `password`, `create_time`, `delete_time`) VALUES
