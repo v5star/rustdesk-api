@@ -17,7 +17,35 @@ if($auth_token){
     $_auth = explode(' ',$auth_token);
     $auth_token = $_auth[1];
 }
-
+$ac = $_GET['ac'];
+if($ac=='add'){
+    $username = $_GET['u'];
+    $pwd = $_GET['p'];
+    $sql = "select count(1) from rustdesk_users where username ='".$username."'";
+    $ret = mysqli_query($conn,$sql);
+    if($ret==0){
+        $pwd2 = md5($pwd.'rustdesk');
+        $sql ="INSERT INTO rustdesk_users (username,password,create_time) VALUES ('".$username."','".$pwd2."',".time().");";
+        mysqli_query($conn,$sql);
+        print_r("添加用户". $username."成功~！");exit();
+    }else{
+        print_r('<span style="color:red">'.$username."已存在，无需重复添加。</span>");exit();
+    } 
+}
+if($ac=='del'){
+    $username = $_GET['u'];
+    $pwd = $_GET['p'];
+    $pwd2 = md5($pwd.'rustdesk');
+    $sql = "select count(1)  from rustdesk_users where username='".$username."' and password='".$pwd2."'"; 
+    $ret = mysqli_query($conn,$sql);
+    if($ret>0){ 
+        $sql ="delete  from rustdesk_users where username='".$username."'";
+        mysqli_query($conn,$sql);
+        print_r("删除用户". $username."成功~！");exit();
+    }else{
+        print_r('<span style="color:red">用户'.$username."不存在，或密码错误。</span>");exit();
+    }
+}
 #登录
 if($action =='/api/login'){
     //获取提交过来数据
