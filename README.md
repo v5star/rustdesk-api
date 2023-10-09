@@ -20,7 +20,7 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
    ```
     如：http://192.168.0.1/index.php?s=
    ```
-4. 首次运行先访问http://你到域名或IP:端口/index.php?ac=runonce 创建数据库以及用户名密码。（mysql版本没有此方法）
+4. 首次运行先访问http://你到域名或IP:端口/index.php?ac=runonce 创建数据库以及用户名密码。（mysql版本没有此方法，自行执行mysql脚本）
    ```
    如：http://www.youdomain.com/index.php?ac=runonce
    ```
@@ -33,7 +33,7 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
    ```
    http://www.youdomain.com/index.php?ac=del&u=test&p=123456
    ```
-   注：删除用户不会删除器用户以前添加的设备ID及信息
+   注：删除用户会删除用户以前添加的设备ID及信息
    
 ![设置](./Snapshots/20230826163152.png)
 ![首页](./Snapshots/index.png)
@@ -43,6 +43,7 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 
 # 已知BUG
 - 网络里设置KEY (id_ed25519.pub),即填写那个公钥字符串后，连接远程设备，需要等很长时间，不填这个串，就秒连了，起作用就是就是加密连接，不填会显示一个红叉，不影响使用。（上面第一张图里的Key那里空着就行）
+- 简化版的宝塔或者windows版本的宝塔，默认不能一次执行多条sql语句（请自行解决，或者拆分一条一条的执行）
 
 # 客户端下载
    https://github.com/rustdesk/rustdesk/releases/
