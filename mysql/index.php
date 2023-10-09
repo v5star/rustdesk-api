@@ -36,9 +36,15 @@ if($ac=='del'){
     $username = $_GET['u'];
     $pwd = $_GET['p'];
     $pwd2 = md5($pwd.'rustdesk');
-    $sql = "select count(1)  from rustdesk_users where username='".$username."' and password='".$pwd2."'"; 
+    $sql = "select * from rustdesk_users where username='".$username."' and password='".$pwd2."'"; 
     $ret = mysqli_query($conn,$sql);
-    if($ret>0){ 
+    if($ret){ 
+	#删除用户对应的tag
+	$sql = "delete from rustdesk_tags where uid=".$ret['id'];
+	mysqli_query($conn,$sql);
+	#删除用户对应的设备信息
+	$sql = "delete from rustdesk_peers where uid=".$ret['id'];
+	mysqli_query($conn,$sql);
         $sql ="delete  from rustdesk_users where username='".$username."'";
         mysqli_query($conn,$sql);
         print_r("删除用户". $username."成功~！");exit();
