@@ -33,19 +33,13 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
    ```
    http://www.youdomain.com/index.php?ac=del&u=test&p=123456
    ```
+   注：删除用户不会删除器用户以前添加的设备ID及信息
    
 ![设置](./Snapshots/20230826163152.png)
 ![首页](./Snapshots/index.png)
 ![登录](./Snapshots/login.png)
 ![地址簿](./Snapshots/20230826163000.png)
 
-
-
-
-# 关于用户名和密码的生成规则：
-1. 去各大搜索引擎里搜索【MD5】，随便点一个进去，找加密的地方，输入 你要的设置的密码，进行加密。
-2. 密码规则：密码+rustdesk，如：你要设置admin为密码，那么你要在上面加密的输入框里输入：adminrustdesk ，结果都是32位的，大致像这样：``` d3541a8746eb583a010c1157438a7ba1 ```
-3. 生成密码后用phpmyadmin在rustdesk_users表里照葫芦画瓢加一条记录。
 
 # 已知BUG
 - 网络里设置KEY (id_ed25519.pub),即填写那个公钥字符串后，连接远程设备，需要等很长时间，不填这个串，就秒连了，起作用就是就是加密连接，不填会显示一个红叉，不影响使用。（上面第一张图里的Key那里空着就行）
