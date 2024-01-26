@@ -39,9 +39,9 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
    注：删除用户会删除用户以前添加的设备ID及信息
    
 # Doceker镜像部署
-由于刚学的docker，镜像做的不是很到位，但是经过测试没有问题了，容器暴露端口为9001，可以根据自己服务器实际情况开放宿主机的端口，如下面命令就是把宿主机的端口8000映射到容器的9001，为了持久化数据库或使用原来的数据库，所以加了VOLUME：/var/www/data，在创建容器是必须传入这个，这个是/www/docker/data是你宿主机的sqlite数据库目录,他是意思就是把宿主机目录/www/docker/data挂载到容器的目录/var/www/data，而且是固定的，--name 是给容器取了个名字，0.0.1这个tag不知道为啥不能去掉，官方文档说默认是latest，我为啥不能用，有知道怎么搞的，可以给我说一下，下一版本在优化。
+由于刚学的docker，镜像做的不是很到位，但是经过测试没有问题了，容器暴露端口为9001，可以根据自己服务器实际情况开放宿主机的端口，如下面命令就是把宿主机的端口8000映射到容器的9001，为了持久化数据库或使用原来的数据库，所以加了VOLUME：/var/www/data，在创建容器是必须传入这个，这个是/www/rustdesk/data是你宿主机的sqlite数据库目录,他是意思就是把宿主机目录/www/rustdesk/data挂载到容器的目录/var/www/data，而且是固定的，--name 是给容器取了个名字，0.0.1这个tag不知道为啥不能去掉，官方文档说默认是latest，我为啥不能用，有知道怎么搞的，可以给我说一下，下一版本在优化。
    ```
-   docker run -p 8000:9001 -d --name rustdesk -v /www/docker/data:/var/www/data --privileged=true v5star/rustdesk-api:0.0.1
+   docker run -p 8000:9001 -d --name rustdesk -v /www/rustdesk/data:/var/www/data --privileged=true v5star/rustdesk-api:0.0.1
    ```
    注：使用docker部署的，在客户端api里填http://ip:port 即可(见下图)。如：你的宿主机IP为192.168.0.10，开发端口为81，那么你的就一直填：
    ```
