@@ -9,7 +9,7 @@
 //关闭数据库连接SQLite3::close()
 
 //指定一个数据库文件名，因db文件是可以下载的，所以前面加了个#，就可以防止下载了。
-$db_name = "#rustdesk.db";
+$db_name = "../data/rustdesk.db";
 //声明一个sqlite3 文本数据库对像
 $db = new SQLite3($db_name);
 //判断是否可用
@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS rustdesk_users
        delete_time INTEGER NOT NULL DEFAULT 0
       ); 
 EOF;
+
 //首先访问一次这个文件，如：htpp://www.xxx.com/index.php?ac=runonce
 $ac = $_GET['ac'];
 if($ac=='runonce'){
@@ -112,6 +113,9 @@ if($auth_token){
     $auth_token = $_auth[1];
 }
 
+if(!$action){
+    print_r('首次运行请执行<a href="index.php?ac=runonce">初始化数据</a>,更新请关注：<a href="https://github.com/v5star/rustdesk-api/">https://github.com/v5star/rustdesk-api/</a>');exit(); 
+}
 #登录
 if($action =='/api/login'){
     //获取提交过来数据
@@ -150,6 +154,81 @@ if($action =='/api/login'){
     //出现中文乱码是用下面这行
     //$json_string = json_encode($res,JSON_UNESCAPED_UNICODE);
     //输出结果json字符串
+    echo $json_string;
+}
+//获取小组
+if($action =='/api/users'){
+    //url:/api/users?current=1&pageSize=100&accessible&status=1
+    //$result = array("total" => 2, "data" => '[{"name":"admin"},{"name":"管理员"}]');
+    //$u[] = array('name' => '管理员','groupLoading'=> 'aaa');
+    //获取当前页
+    $current = $_GET['current'];
+    //获取分页大小
+    $pageSize =  $_GET['pageSize'];
+    //获取提交过来数据
+    $data = json_decode($raw_post_data,true);
+    //去数据库查此用户的sql语句
+    $sql = "select * from rustdesk_token where access_token = '".$auth_token."'";
+    //验证用户是否有效
+    $info = $db->querySingle($sql,true);
+    $group = [];
+    //记录总数
+    $total = 0;
+    if($info){
+        //有效，则取出相应记录数的用户
+        $sn = ($current-1)*$pageSize; 
+        $u_sql = "select * from rustdesk_users LIMIT {$sn}, {$pageSize}";
+        $res = $db->query($u_sql);
+        while ($row = $res->fetchArray()) {
+            $item = [];
+            $item['name'] = $row['username'];
+            $group[] = $item;
+        }
+        $count_sql = "select count(1) as num from rustdesk_users";
+        $all = $db->querySingle($count_sql, true);
+        $total =$all['num'];
+    }   
+    $group_json = array("total" => $total, "data" => $group);
+
+    $json_string = json_encode($group_json);
+    echo $json_string;
+}
+//小组设备，OS:windows,linux,macos,android,
+if($action =='/api/peers'){
+//GET /api/peers?current=1&pageSize=100&accessible&status=1
+    //获取当前页
+    $current = $_GET['current'];
+    //获取分页大小
+    $pageSize =  $_GET['pageSize'];
+    //获取提交过来数据
+    $data = json_decode($raw_post_data,true);
+    //去数据库查此用户的sql语句
+    $sql = "select * from rustdesk_token where access_token = '".$auth_token."'";
+    //验证用户是否有效
+    $info = $db->querySingle($sql,true);
+    $peers = [];
+    //记录总数
+    $total = 0;
+    if($info){
+        //有效，则取出相应记录数的用户
+        $sn = ($current-1)*$pageSize; 
+        $p_sql = "select * from rustdesk_peers where uid = {$info['uid']} LIMIT {$sn}, {$pageSize} ";
+         
+        $res = $db->query($p_sql);
+        while ($row = $res->fetchArray()) {
+            $item = [];
+            $item['id'] = $row['id'];
+            $item['user_name'] = $info['username'];
+            $item['info'] = ['device_name'=>$row['alias'],'os'=>$row['platform'],'username'=>$row['username']];
+            $peers[] = $item;
+        }
+        $count_sql = "select count(1) as num from rustdesk_peers where uid = {$info['uid']}";
+        $all = $db->querySingle($count_sql, true);
+        $total =$all['num'];
+    }   
+    $peers_json = array("total" => $total, "data" => $peers);
+
+    $json_string = json_encode($peers_json);
     echo $json_string;
 }
 #获取当前登录用户的所有信息
@@ -259,7 +338,7 @@ if ($action == '/api/ab') {
                 $item['hostname'] = $row['hostname'];
                 $item['alias'] = $row['alias'];
                 $item['platform'] = $row['platform'];
-		$item['hash'] = $row['hash'];
+		        $item['hash'] = $row['hash'];
                 $item['tags'] = explode(',', $row['tags']);
                 $_peers[] = $item;
             }
@@ -277,7 +356,6 @@ if ($action == '/api/ab') {
         echo $address_book;
     }
 }
- 
 //心跳检测，基本用不到，不用关注, audit 这个方法好像废弃了
 if($action =='/api/heartbeat'){    
     $_res = array(
@@ -288,6 +366,11 @@ if($action =='/api/heartbeat'){
 }
 //这个暂时不知道有何用
 if($action =='/api/login-options'){
+	echo 'ok';
+}
+//设备备注
+if($action =='/api/audit/conn'){
+   // {"id":"1614816847","note":"abcd","session_id":17045507621117437555}
 	echo 'ok';
 }
 //这个是把设备信息提交到服务器，这个想用的自己加个表吧
@@ -321,5 +404,5 @@ if($action =='/api/logout'){
     echo $logout;
 }
 //关闭数据连接
-$db->close();
+$db->close(); 
 ?>
