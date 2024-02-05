@@ -1,4 +1,6 @@
 <?
+//隐藏php7.4版本以后的警告
+error_reporting(0);
 //前奏知识点：
 //php操作SQLite3
 //https://www.php.net/manual/zh/book.sqlite3.php
