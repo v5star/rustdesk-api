@@ -15,7 +15,7 @@ RUN set -eux; \
     sed  -i  '8i php-fpm -D' /usr/local/bin/docker-php-entrypoint;
 
 # 复制自定义的Nginx配置文件到容器中
-COPY ./config/nginx-dockerfile.conf /etc/nginx/nginx.conf
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
 
 # 复制应用代码到容器中
 COPY ./www /var/www/html
