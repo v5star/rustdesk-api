@@ -6,7 +6,7 @@ WORKDIR /var/www/
 ENV TZ="Asia/Shanghai"
 USER root
 
-# 安装PHP扩展（根据需要安装）
+# 安装nginx,修改配置文件
 RUN set -eux; \
     apk add --no-cache \ 
     nginx; \
@@ -18,7 +18,7 @@ RUN set -eux; \
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
 
 # 复制应用代码到容器中
-COPY ./www /var/www/html
+COPY ./sqlite /var/www/html
 
 # 暴露端口
 EXPOSE 80
