@@ -40,27 +40,23 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
    注：删除用户会删除用户以前添加的设备ID及信息
    
 # Doceker镜像部署
-由于刚学的docker，镜像做的不是很到位，但是经过测试没有问题了，容器暴露端口为9001，可以根据自己服务器实际情况开放宿主机的端口，如下面命令就是把宿主机的端口8000映射到容器的9001，为了持久化数据库或使用原来的数据库，所以加了VOLUME：/var/www/data，在创建容器是必须传入这个，这个是/www/rustdesk/data是你宿主机的sqlite数据库目录,他是意思就是把宿主机目录/www/rustdesk/data（window是拒绝路径，如：E:\rustdesk）挂载到容器的目录/var/www/data，而且是固定的，--name 是给容器取了个名字，0.0.1这个tag不知道为啥不能去掉，官方文档说默认是latest，我为啥不能用，有知道怎么搞的，可以给我说一下，下一版本在优化。
+容器暴露端口为80，可以根据自己服务器实际情况开放宿主机的端口，如下面命令就是把宿主机的端口8000映射到容器的80，为了持久化数据库或使用原来的数据库，所以加了VOLUME：/var/www/data，在创建容器是必须传入。
    ```
    docker run -p 8000:80 -d --name rustdesk -v /www/rustdesk/data:/var/www/data v5star/rustdesk-api
    ```
-   注：使用docker部署的，在客户端api里填http://ip:port 即可(见下图)。如：你的宿主机IP为192.168.0.10，开发端口为81，那么你的就一直填：
-   ```
-   http://192.168.0.10:81
-   ```
-   若使用上面命令不改动的话，就是 
+   注：使用docker部署的，在客户端api里填http://ip:port 即可(见下图)。如：你的宿主机IP为192.168.0.10，对外端口为8000，那么你的就一直填：
    ```
    http://192.168.0.10:8000
-   ```
-   第一次执行上面命令会报Unable to find image 'v5star/rustdesk-api:0.0.1' locally，请勿担心，等一会就自动下载并部署完成了。
+   ```  
 
 # Dockder运行参数
 
 |  参数名   | 说明  |
 |  ----  | ----  |
 | -p  | 端口映射,前边宿主机的端口，后面是容器端口80 |
+| -d  | 后台运行 |
 | --name  | 友好名称，如：rustdesk |
-| -v  | 挂载目录/var/www/data 固定值（必须）,如：宿主机linux为：/var/www/data,window为：d:\rustdesk |
+| -v  | 容器目录/var/www/data 固定值（必须）,如：宿主机linux为：/var/www/data,window为：d:\rustdesk，也可以为一个存储名字 |
 
 ![设置](./Snapshots/20240126112408.png)
 ![设置](./Snapshots/20230826163152.png)
