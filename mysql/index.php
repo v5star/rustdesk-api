@@ -23,7 +23,7 @@ if($ac=='add'){
     $pwd = $_GET['p'];
     $sql = "select count(1) from rustdesk_users where username ='".$username."'";
     $ret = mysqli_query($conn,$sql);
-    if($ret==0){
+    if(mysqli_num_rows($ret)==0){
         $pwd2 = md5($pwd.'rustdesk');
         $sql ="INSERT INTO rustdesk_users (username,password,create_time) VALUES ('".$username."','".$pwd2."',".time().");";
         mysqli_query($conn,$sql);
@@ -38,7 +38,8 @@ if($ac=='del'){
     $pwd2 = md5($pwd.'rustdesk');
     $sql = "select * from rustdesk_users where username='".$username."' and password='".$pwd2."'"; 
     $ret = mysqli_query($conn,$sql);
-    if($ret){ 
+    //if($ret){ //这里有可能与mysql版本有关，以下为网友修改，本人未测试。
+    if($ret = mysqli_fetch_assoc($ret)){     
 	#删除用户对应的tag
 	$sql = "delete from rustdesk_tags where uid=".$ret['id'];
 	mysqli_query($conn,$sql);
