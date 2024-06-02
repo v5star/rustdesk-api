@@ -1,0 +1,10 @@
+version: '3.6'
+services:
+  api:
+    image: v5star/rustdesk-api
+    restart: always
+    container_name: rustdesk-api
+    ports:
+      - 80:80
+    volumes:
+      - ./data:/var/www/data
