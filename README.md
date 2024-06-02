@@ -65,6 +65,13 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 ![登录](./Snapshots/login.png)
 ![地址簿](./Snapshots/20230826163000.png)
 
+# Docker Compose 文件部署
+直接用根目录下的docker-compose.yaml运行，如有别的需求可以自行修改。（在yaml文件目录下运行下面命令即可成功）
+   ```
+   docker-compose up -d
+   ```
+注意：上面docker-compose.yaml文件中，对外暴露的端口是80端口，直接访问运行效果如下：
+![地址簿](./Snapshots/20240602134722.png)
 
 # 已知BUG
 - 网络里设置KEY (id_ed25519.pub),即填写那个公钥字符串后，连接远程设备，需要等很长时间，不填这个串，就秒连了，起作用就是就是加密连接，不填会显示一个红叉，不影响使用。（上面第一张图里的Key那里空着就行）
