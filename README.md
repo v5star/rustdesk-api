@@ -7,7 +7,8 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 - 不用记哪些烦人的ID了
 - 新增，可以一键登录，设备连接密码也存到服务器上了
 - 可以看设备状态
-- 自定义设备ID
+- 自定义设备ID（这个很香）
+- 开启允许IP直接访问（这个也很香）
 
 # 新增或修改
 - 支持rustdesk 1.2.3，支持用户组
@@ -79,6 +80,10 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 
 # 客户端下载
    https://github.com/rustdesk/rustdesk/releases/
+# 交流方式
+   微信：OY-Tianyu 
+   注明来意，胡乱加不会通过~！
+   不要在52pojie上浏览方式了，懂得都懂。
 
 ## 致谢
 - [rustdesk](https://github.com/rustdesk)
