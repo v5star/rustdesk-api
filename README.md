@@ -81,6 +81,13 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 注意：上面docker-compose.yaml文件中，对外暴露的端口是80端口，直接访问运行效果如下：
 ![地址簿](./Snapshots/20240602134722.png)
 
+# rustdesk-api部署视频教程
+```url
+   ## 方法1（Doceker镜像部署）:rustdesk-api部署视频教程-1-1.mp4、rustdesk-api部署视频教程-1-2.mp4
+   ## 方法2（Docker Compose 文件部署）：rustdesk-api部署视频教程-2.mp4
+   ## 方法（源码部署）3：rustdesk-api部署视频教程-3.mp4
+下载地址：https://v5star.lanzouo.com/b0plv183a 密码:49az  由于文件上传大小限制，所以只能上链接了。
+```
 # 已知BUG
 - 网络里设置KEY (id_ed25519.pub),即填写那个公钥字符串后，连接远程设备，需要等很长时间，不填这个串，就秒连了，起作用就是就是加密连接，不填会显示一个红叉，不影响使用。（上面第一张图里的Key那里空着就行）
 - 简化版的宝塔或者windows版本的宝塔，默认不能一次执行多条sql语句（请自行解决，或者拆分一条一条的执行）
