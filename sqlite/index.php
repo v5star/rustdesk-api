@@ -11,7 +11,7 @@ error_reporting(0);
 //关闭数据库连接SQLite3::close()
 
 //指定一个数据库文件名，因db文件是可以下载的，所以前面加了个#，就可以防止下载了。
-$db_name = "../data/rustdesk.db";
+$db_name = "./data/rustdesk.db";
 //声明一个sqlite3 文本数据库对像
 $db = new SQLite3($db_name);
 //判断是否可用
