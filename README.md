@@ -22,11 +22,19 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 # 食用方法
 1. 在php环境的服务器上新增一个网站。
 2. 把数据库对应的版本的php文件拷贝到根目录。如：SQLite版的在``` sqlite ```文件夹下
-3. 在客户端ID/中继服务器里设置API服务器为：http://你到域名或IP:端口/index.php?s=
+3. 在客户端ID/中继服务器里设置API服务器为：http://你到域名或IP:端口
    ```
-    如：http://192.168.0.1/index.php?s=
+    如：http://192.168.0.1
    ```
-4. 首次运行先访问http://你到域名或IP:端口/index.php?ac=runonce 创建数据库以及用户名密码。（mysql版本没有此方法，自行执行mysql脚本）
+   ### 注：源码部署需要在web服务器上配置伪静态，否则获取分组有问题。nginx代码如下(其他自行百度)：
+   ```nginx
+   location / {        	
+      if (!-e $request_filename) {
+          rewrite  ^/(.*)$  /index.php?s=/$1  last;
+      }
+   }
+   ```
+5. 首次运行先访问http://你到域名或IP:端口/index.php?ac=runonce 创建数据库以及用户名密码。（mysql版本没有此方法，自行执行mysql脚本）
    ```
    如：http://www.youdomain.com/index.php?ac=runonce
    ```
