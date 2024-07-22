@@ -24,7 +24,7 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 2. 把数据库对应的版本的php文件拷贝到根目录。如：SQLite版的在``` sqlite ```文件夹下
 3. 在客户端ID/中继服务器里设置API服务器为：http://你到域名或IP:端口
    ```
-    如：http://192.168.0.1
+    如：http://192.168.0.1:8080
    ```
    ### 注：源码部署需要在web服务器上配置伪静态，否则获取分组有问题。nginx代码如下(其他自行百度)：
    ```nginx
@@ -69,7 +69,6 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 | -v  | 容器目录/var/www/data 固定值（必须）,如：宿主机linux为：/var/www/data,window为：d:\rustdesk，也可以为一个存储名字 |
 
 ![设置](./Snapshots/20240126112408.png)
-![设置](./Snapshots/20230826163152.png)
 ![首页](./Snapshots/index.png)
 ![登录](./Snapshots/login.png)
 ![地址簿](./Snapshots/20230826163000.png)
