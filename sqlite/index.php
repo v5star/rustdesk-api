@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS rustdesk_users
 EOF;
 
 //首先访问一次这个文件，如：htpp://www.xxx.com/index.php?ac=runonce
-$ac = $_GET['ac'];
+$ac = $_GET['ac']||$_GET['current'];
 if($ac=='runonce'){
     $ret = $db->exec($sql);
     if($ret) {
