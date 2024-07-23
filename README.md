@@ -97,7 +97,7 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
 # 交流方式
    微信：OY-Tianyu 
    注明来意，胡乱加不会通过~！
-   不要在52pojie上联系方式了，懂得都懂。
+   不要在52pojie上要联系方式了，懂得都懂。
 
 ## 致谢
 - [rustdesk](https://github.com/rustdesk)
