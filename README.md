@@ -127,8 +127,8 @@ rustdesk远控软件自建API服务器，rustdesk地址薄服务接口，自己�
      执行完上面命令后访问`http://你到域名或IP:端口`就正常显示了。  
 
 # 客户端下载
-   官方原版：https://github.com/rustdesk/rustdesk/releases
-   修改版：https://github.com/lejianwen/rustdesk/releases
+   - 官方原版：https://github.com/rustdesk/rustdesk/releases
+   - 修改版：https://github.com/lejianwen/rustdesk/releases
 # 交流方式
    微信：OY-Tianyu 
    注明来意，胡乱加不会通过~！
